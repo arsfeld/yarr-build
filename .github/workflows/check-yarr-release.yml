@@ -1,4 +1,4 @@
-name: Check Tailscale latest release
+name: Check Yarr latest release
 on:
   workflow_dispatch:
   schedule:
@@ -13,9 +13,9 @@ jobs:
       - name: Fetch latest release tag
         id: fetch-tag
         run: |
-          tag=$(curl -sL https://api.github.com/repos/tailscale/tailscale/releases/latest | \
+          tag=$(curl -sL https://api.github.com/repos/nkanaev/yarr/releases/latest | \
           jq -r ".tag_name")
-          echo $tag > tailscale-version.txt
+          echo $tag > yarr-version.txt
           echo ::set-output name=tag::$tag
       - name: Check modified
         id: git-check
@@ -23,7 +23,7 @@ jobs:
       - name: Commit new version
         if: steps.git-check.outputs.modified == 'true'
         run: |
-          git config --global user.name 'check-tailscale-release'
+          git config --global user.name 'check-yarr-release'
           git config --global user.email '<>'
           git commit -am "${{ steps.fetch-tag.outputs.tag }}"
           git push
