@@ -19,6 +19,10 @@ jobs:
         with:
           repository: 'nkanaev/yarr'
           ref: ${{ steps.read-tag.outputs.tag }}
+      - 
+        name: Remove GOARCH
+        run: |
+          sed -i -e 's/GOARCH=amd64//g' makefile
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
